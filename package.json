@@ -1,0 +1,24 @@
+{
+  "name": "dsa-backend",
+  "version": "1.0.0",
+  "description": "Backend project for digital student assistant",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stepan-Bryantsev/DSA-backend.git"
+  },
+  "author": "Stepan Bryantsev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Stepan-Bryantsev/DSA-backend/issues"
+  },
+  "homepage": "https://github.com/Stepan-Bryantsev/DSA-backend#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
