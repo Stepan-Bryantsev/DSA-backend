@@ -1,4 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  Relation,
+  ManyToOne,
+  JoinColumn,
+  ManyToMany,
+  JoinTable,
+} from "typeorm";
+import Category from "./Category.js";
+import Faculty from "./Faculty.js";
+import Project from "./Project.js";
 
 @Entity("users")
 export default class User {
@@ -20,6 +33,10 @@ export default class User {
   @Column()
   faculty_id: number;
 
+  @ManyToOne((type) => Faculty)
+  @JoinColumn({ name: "faculty_id" })
+  faculty: Relation<Faculty>;
+
   @Column()
   password: string;
 
@@ -28,4 +45,18 @@ export default class User {
 
   @Column()
   updated_date: Date;
+
+  @ManyToMany((type) => Category)
+  @JoinTable({
+    name: "user_categories",
+    joinColumn: {
+      name: "user_id",
+      referencedColumnName: "id",
+    },
+    inverseJoinColumn: {
+      name: "category_id",
+      referencedColumnName: "id",
+    },
+  })
+  categories: Category[];
 }

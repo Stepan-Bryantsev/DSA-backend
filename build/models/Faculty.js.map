@@ -1,0 +1,1 @@
+{"version":3,"file":"Faculty.js","sourceRoot":"","sources":["../../src/models/Faculty.ts"],"names":[],"mappings":";;;;;;;;;AAAA,OAAO,EAAE,MAAM,EAAE,MAAM,EAAE,sBAAsB,EAAuB,MAAM,SAAS,CAAC;AAIvE,IAAM,OAAO,GAAb,MAAM,OAAO;CAS3B,CAAA;AARC;IAAC,sBAAsB,EAAE;;mCACd;AAEX;IAAC,MAAM,EAAE;;qCACI;AAEb;IAAC,MAAM,EAAE;;0CACS;AARC,OAAO;IAD3B,MAAM,CAAC,WAAW,CAAC;GACC,OAAO,CAS3B;eAToB,OAAO"}

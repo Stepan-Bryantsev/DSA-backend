@@ -1,4 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  Relation,
+  JoinColumn,
+  ManyToMany,
+  JoinTable,
+} from "typeorm";
+import Category from "./Category.js";
+import User from "./User.js";
 
 @Entity("projects")
 export default class Project {
@@ -7,6 +18,10 @@ export default class Project {
 
   @Column()
   creator_user_id: number;
+
+  @ManyToOne((type) => User)
+  @JoinColumn({ name: "creator_user_id" })
+  user: Relation<User>;
 
   @Column()
   name: string;
@@ -31,4 +46,18 @@ export default class Project {
 
   @Column()
   end_date: Date;
+
+  @ManyToMany((type) => Category)
+  @JoinTable({
+    name: "project_categories",
+    joinColumn: {
+      name: "project_id",
+      referencedColumnName: "id",
+    },
+    inverseJoinColumn: {
+      name: "category_id",
+      referencedColumnName: "id",
+    },
+  })
+  categories: Category[];
 }

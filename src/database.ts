@@ -1,6 +1,9 @@
 import { DataSource } from "typeorm";
 import User from "./models/User.js";
 import Project from "./models/Project.js";
+import Faculty from "./models/Faculty.js";
+import Category from "./models/Category.js";
+import Application from "./models/Application.js";
 
 const dataSource = new DataSource({
   type: "postgres",
@@ -9,7 +12,7 @@ const dataSource = new DataSource({
   username: "udsa01",
   password: "HSEP@ssword2022",
   database: "dsa01",
-  entities: [User, Project],
+  entities: [User, Project, Faculty, Category, Application],
 });
 
 export default dataSource;

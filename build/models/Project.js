@@ -7,7 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, ManyToMany, JoinTable, } from "typeorm";
+import Category from "./Category.js";
+import User from "./User.js";
 let Project = class Project {
 };
 __decorate([
@@ -18,6 +20,11 @@ __decorate([
     Column(),
     __metadata("design:type", Number)
 ], Project.prototype, "creator_user_id", void 0);
+__decorate([
+    ManyToOne((type) => User),
+    JoinColumn({ name: "creator_user_id" }),
+    __metadata("design:type", Object)
+], Project.prototype, "user", void 0);
 __decorate([
     Column(),
     __metadata("design:type", String)
@@ -50,6 +57,21 @@ __decorate([
     Column(),
     __metadata("design:type", Date)
 ], Project.prototype, "end_date", void 0);
+__decorate([
+    ManyToMany((type) => Category),
+    JoinTable({
+        name: "project_categories",
+        joinColumn: {
+            name: "project_id",
+            referencedColumnName: "id",
+        },
+        inverseJoinColumn: {
+            name: "category_id",
+            referencedColumnName: "id",
+        },
+    }),
+    __metadata("design:type", Array)
+], Project.prototype, "categories", void 0);
 Project = __decorate([
     Entity("projects")
 ], Project);
