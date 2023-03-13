@@ -19,9 +19,9 @@ __decorate([
     __metadata("design:type", String)
 ], Faculty.prototype, "name", void 0);
 __decorate([
-    Column(),
+    Column({ name: "shortname" }),
     __metadata("design:type", String)
-], Faculty.prototype, "shortname", void 0);
+], Faculty.prototype, "shortName", void 0);
 Faculty = __decorate([
     Entity("faculties")
 ], Faculty);

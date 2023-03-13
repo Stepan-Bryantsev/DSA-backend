@@ -7,7 +7,7 @@ import Application from "./models/Application.js";
 
 const dataSource = new DataSource({
   type: "postgres",
-  host: "localhost",
+  host: "84.201.175.11",
   port: 5432,
   username: "udsa01",
   password: "HSEP@ssword2022",

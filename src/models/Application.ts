@@ -15,21 +15,21 @@ export default class Application {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column("project_id")
+  @Column({ name: "project_id" })
   projectId: number;
 
   @ManyToOne((type) => Project)
   @JoinColumn({ name: "project_id" })
   project: Relation<Project>;
 
-  @Column("applicant_id")
+  @Column({ name: "applicant_id" })
   applicantId: number;
 
   @ManyToOne((type) => User)
   @JoinColumn({ name: "applicant_id" })
   applicant: Relation<User>;
 
-  @Column("created_date")
+  @Column({ name: "created_date" })
   createdDate: Date;
 
   @Column()

@@ -16,7 +16,7 @@ export default class Project {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column("creator_user_id")
+  @Column({ name: "creator_user_id" })
   creatorUserId: number;
 
   @ManyToOne((type) => User)
@@ -32,19 +32,19 @@ export default class Project {
   @Column()
   contacts: string;
 
-  @Column("is_closed")
+  @Column({ name: "is_closed" })
   isClosed: Boolean;
 
-  @Column("createdDate")
+  @Column({ name: "createdDate" })
   created_date: Date;
 
-  @Column("updated_date")
+  @Column({ name: "updated_date" })
   updatedDate: Date;
 
-  @Column("start_date")
+  @Column({ name: "start_date" })
   startDate: Date;
 
-  @Column("end_date")
+  @Column({ name: "end_date" })
   endDate: Date;
 
   @ManyToMany((type) => Category)

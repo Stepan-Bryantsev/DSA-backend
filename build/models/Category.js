@@ -19,9 +19,9 @@ __decorate([
     __metadata("design:type", String)
 ], Category.prototype, "category", void 0);
 __decorate([
-    Column(),
+    Column({ name: "is_custom" }),
     __metadata("design:type", Boolean)
-], Category.prototype, "is_custom", void 0);
+], Category.prototype, "isCustom", void 0);
 Category = __decorate([
     Entity("categories")
 ], Category);

@@ -17,9 +17,9 @@ __decorate([
     __metadata("design:type", Number)
 ], Project.prototype, "id", void 0);
 __decorate([
-    Column(),
+    Column({ name: "creator_user_id" }),
     __metadata("design:type", Number)
-], Project.prototype, "creator_user_id", void 0);
+], Project.prototype, "creatorUserId", void 0);
 __decorate([
     ManyToOne((type) => User),
     JoinColumn({ name: "creator_user_id" }),
@@ -38,25 +38,25 @@ __decorate([
     __metadata("design:type", String)
 ], Project.prototype, "contacts", void 0);
 __decorate([
-    Column(),
+    Column({ name: "is_closed" }),
     __metadata("design:type", Boolean)
-], Project.prototype, "is_closed", void 0);
+], Project.prototype, "isClosed", void 0);
 __decorate([
-    Column(),
+    Column({ name: "createdDate" }),
     __metadata("design:type", Date)
 ], Project.prototype, "created_date", void 0);
 __decorate([
-    Column(),
+    Column({ name: "updated_date" }),
     __metadata("design:type", Date)
-], Project.prototype, "updated_date", void 0);
+], Project.prototype, "updatedDate", void 0);
 __decorate([
-    Column(),
+    Column({ name: "start_date" }),
     __metadata("design:type", Date)
-], Project.prototype, "start_date", void 0);
+], Project.prototype, "startDate", void 0);
 __decorate([
-    Column(),
+    Column({ name: "end_date" }),
     __metadata("design:type", Date)
-], Project.prototype, "end_date", void 0);
+], Project.prototype, "endDate", void 0);
 __decorate([
     ManyToMany((type) => Category),
     JoinTable({

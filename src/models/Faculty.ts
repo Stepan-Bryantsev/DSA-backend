@@ -9,6 +9,6 @@ export default class Faculty {
   @Column()
   name: string;
 
-  @Column("shortname")
+  @Column({ name: "shortname" })
   shortName: string;
 }

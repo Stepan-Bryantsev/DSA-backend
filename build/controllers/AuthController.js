@@ -16,7 +16,7 @@ export const register = async (req, res) => {
         const passwordHash = await bcrypt.hash(password, salt);
         const newUser = new User();
         newUser.email = req.body.email;
-        newUser.fullname = req.body.fullName;
+        newUser.fullName = req.body.fullName;
         newUser.password = passwordHash;
         await usersRepo.save(newUser);
         const token = jwt.sign({
@@ -24,6 +24,7 @@ export const register = async (req, res) => {
         }, "dsasecret2023", {
             expiresIn: "30d",
         });
+        res.setHeader("user", newUser.id);
         res.status(201).json({
             token,
         });
@@ -56,6 +57,7 @@ export const login = async (req, res) => {
         }, "dsasecret2023", {
             expiresIn: "30d",
         });
+        res.setHeader("user", user.id);
         res.status(200).json({
             token,
         });

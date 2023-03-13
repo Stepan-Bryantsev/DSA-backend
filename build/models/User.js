@@ -21,21 +21,21 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
-    Column(),
+    Column({ name: "fullname" }),
     __metadata("design:type", String)
-], User.prototype, "fullname", void 0);
+], User.prototype, "fullName", void 0);
 __decorate([
-    Column(),
+    Column({ name: "last_login" }),
     __metadata("design:type", Date)
-], User.prototype, "last_login", void 0);
+], User.prototype, "lastLogin", void 0);
 __decorate([
     Column(),
     __metadata("design:type", String)
 ], User.prototype, "description", void 0);
 __decorate([
-    Column(),
+    Column({ name: "faculty_id" }),
     __metadata("design:type", Number)
-], User.prototype, "faculty_id", void 0);
+], User.prototype, "facultyId", void 0);
 __decorate([
     ManyToOne((type) => Faculty),
     JoinColumn({ name: "faculty_id" }),
@@ -46,13 +46,13 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    Column(),
+    Column({ name: "created_date" }),
     __metadata("design:type", Date)
-], User.prototype, "created_date", void 0);
+], User.prototype, "createdDate", void 0);
 __decorate([
-    Column(),
+    Column({ name: "updated_date" }),
     __metadata("design:type", Date)
-], User.prototype, "updated_date", void 0);
+], User.prototype, "updatedDate", void 0);
 __decorate([
     ManyToMany((type) => Category),
     JoinTable({

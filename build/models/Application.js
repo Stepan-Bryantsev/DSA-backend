@@ -17,27 +17,27 @@ __decorate([
     __metadata("design:type", Number)
 ], Application.prototype, "id", void 0);
 __decorate([
-    Column(),
+    Column({ name: "project_id" }),
     __metadata("design:type", Number)
-], Application.prototype, "project_id", void 0);
+], Application.prototype, "projectId", void 0);
 __decorate([
     ManyToOne((type) => Project),
     JoinColumn({ name: "project_id" }),
     __metadata("design:type", Object)
 ], Application.prototype, "project", void 0);
 __decorate([
-    Column(),
+    Column({ name: "applicant_id" }),
     __metadata("design:type", Number)
-], Application.prototype, "applicant_id", void 0);
+], Application.prototype, "applicantId", void 0);
 __decorate([
     ManyToOne((type) => User),
     JoinColumn({ name: "applicant_id" }),
     __metadata("design:type", Object)
 ], Application.prototype, "applicant", void 0);
 __decorate([
-    Column(),
+    Column({ name: "created_date" }),
     __metadata("design:type", Date)
-], Application.prototype, "created_date", void 0);
+], Application.prototype, "createdDate", void 0);
 __decorate([
     Column(),
     __metadata("design:type", String)

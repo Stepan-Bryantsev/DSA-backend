@@ -60,7 +60,7 @@ export const getCategories = async (req, res) => {
         const categoryRepo = dataSource.getRepository(Category);
         const categories = await categoryRepo.find({
             where: {
-                is_custom: false,
+                isCustom: false,
             },
         });
         res.status(200).json(categories);
@@ -102,7 +102,7 @@ export const setUserCategories = async (req, res) => {
             .map((c) => {
             const cat = new Category();
             cat.category = c;
-            cat.is_custom = true;
+            cat.isCustom = true;
             return cat;
         });
         await categoriesRepo.save(customCategories);
@@ -147,7 +147,7 @@ export const setUserFaculty = async (req, res) => {
                 message: "User does not exist",
             });
         }
-        currentUser.faculty_id = req.body.facultyId;
+        currentUser.facultyId = req.body.facultyId;
         await usersRepo.save(currentUser);
         res.status(201).json({
             success: true,
