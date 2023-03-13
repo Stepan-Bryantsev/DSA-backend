@@ -1,6 +1,6 @@
 import dataSource from "../database.js";
 import Project from "../models/Project.js";
-import { In, Like } from "typeorm";
+import { In, Like, Not } from "typeorm";
 import Category from "../models/Category.js";
 import Application from "../models/Application.js";
 export const getProjects = async (req, res) => {
@@ -15,8 +15,8 @@ export const getProjects = async (req, res) => {
                 categories: true,
             },
             where: [
-                { name: Like(`%${req.query.search}%`) },
-                { description: Like(`%${req.query.search}%`) },
+                { name: Like(`%${req.query.search}%`), creator_user_id: Not(req.userId) },
+                { description: Like(`%${req.query.search}%`), creator_user_id: Not(req.userId) },
             ],
             order: {
                 id: "DESC",
@@ -35,6 +35,34 @@ export const getProjects = async (req, res) => {
             }),
             count: projects[1],
         });
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            success: false,
+            message: "Server error",
+        });
+    }
+};
+export const getProject = async (req, res) => {
+    try {
+        const projectsRepo = dataSource.getRepository(Project);
+        const project = await projectsRepo.findOne({
+            select: {
+                creator_user_id: false,
+            },
+            relations: {
+                user: true,
+                categories: true,
+            },
+            where: {
+                id: req.params.id,
+            },
+            order: {
+                id: "DESC",
+            },
+        });
+        res.status(200).json(project);
     }
     catch (err) {
         console.log(err);
@@ -238,6 +266,45 @@ export const getIncomingApplications = async (req, res) => {
             },
         });
         res.status(200).json(applications);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            success: false,
+            message: "Server error",
+        });
+    }
+};
+export const processApplication = async (req, res) => {
+    try {
+        const applicationRepo = dataSource.getRepository(Application);
+        const action = req.body.action;
+        if (action !== 2 && action !== 3) {
+            return res.status(400).json({
+                message: "Wrong action",
+            });
+        }
+        const application = await applicationRepo.findOne({
+            where: {
+                id: req.body.applicationId,
+            },
+            relations: {
+                project: true,
+            },
+        });
+        if (!application) {
+            return res.status(400).json({
+                message: "Application not found",
+            });
+        }
+        if (application.project.creator_user_id != req.userId) {
+            return res.status(400).json({
+                message: "You are not project owner",
+            });
+        }
+        application.status = req.body.action;
+        await applicationRepo.save(application);
+        res.status(200).json({ success: true });
     }
     catch (err) {
         console.log(err);

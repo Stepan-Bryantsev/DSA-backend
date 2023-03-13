@@ -8,6 +8,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
     try {
       const decoded = jwt.verify(token, "dsasecret2023") as { _id: number };
 
+      res.setHeader("user", decoded._id);
       req.userId = decoded._id;
       next();
     } catch (e) {

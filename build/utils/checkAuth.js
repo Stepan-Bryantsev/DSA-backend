@@ -4,6 +4,7 @@ export default (req, res, next) => {
     if (token) {
         try {
             const decoded = jwt.verify(token, "dsasecret2023");
+            res.setHeader("user", decoded._id);
             req.userId = decoded._id;
             next();
         }

@@ -29,6 +29,32 @@ export const getUserProfile = async (req, res) => {
         });
     }
 };
+export const getUsersProfile = async (req, res) => {
+    try {
+        const usersRepo = dataSource.getRepository(User);
+        const userProfile = await usersRepo.findOne({
+            where: {
+                id: req.params.id,
+            },
+            relations: {
+                faculty: true,
+                categories: true,
+            },
+        });
+        if (!userProfile) {
+            return res.status(403).json({ message: "error" });
+        }
+        const { password, ...userData } = userProfile;
+        res.status(200).json({ ...userData });
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            success: false,
+            message: "Server error",
+        });
+    }
+};
 export const getCategories = async (req, res) => {
     try {
         const categoryRepo = dataSource.getRepository(Category);

@@ -5,9 +5,11 @@ import {
   editProject,
   getCategories,
   getIncomingApplications,
+  getProject,
   getProjects,
   getSentApplications,
   getUserProjects,
+  processApplication,
 } from "../controllers/ProjectController.js";
 import checkAuth from "../utils/checkAuth.js";
 import handleValidationErrors from "../utils/handleValidationErrors.js";
@@ -25,10 +27,12 @@ router.route("/").get(getProjects);
 router.route("/").post(createProjectValidation, handleValidationErrors, createProject);
 router.route("/").patch(editProjectValidation, handleValidationErrors, editProject);
 
+router.route("/getProject/:id").get(getProject);
 router.route("/my").get(getUserProjects);
 router.route("/getCategories").get(getCategories);
 router.route("/getSentApplications").get(getSentApplications);
 router.route("/getIncomingApplications").get(getIncomingApplications);
 router.route("/apply").post(applicationValidation, handleValidationErrors, createApplication);
+router.route("/processApplication").post(processApplication);
 
 export default router;
