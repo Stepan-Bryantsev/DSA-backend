@@ -37,6 +37,7 @@ export const register = async (req: Request, res: Response) => {
       }
     );
 
+    res.setHeader("user", newUser.id);
     res.status(201).json({
       token,
     });
@@ -77,6 +78,7 @@ export const login = async (req: Request, res: Response) => {
       }
     );
 
+    res.setHeader("user", user.id);
     res.status(200).json({
       token,
     });
