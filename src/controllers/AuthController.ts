@@ -22,7 +22,7 @@ export const register = async (req: Request, res: Response) => {
 
     const newUser = new User();
     newUser.email = req.body.email;
-    newUser.fullname = req.body.fullName;
+    newUser.fullName = req.body.fullName;
     newUser.password = passwordHash;
 
     await usersRepo.save(newUser);

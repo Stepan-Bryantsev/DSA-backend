@@ -69,7 +69,7 @@ export const getCategories = async (req: Request, res: Response) => {
 
     const categories = await categoryRepo.find({
       where: {
-        is_custom: false,
+        isCustom: false,
       },
     });
 
@@ -117,7 +117,7 @@ export const setUserCategories = async (req: Request, res: Response) => {
       .map((c: string) => {
         const cat = new Category();
         cat.category = c;
-        cat.is_custom = true;
+        cat.isCustom = true;
         return cat;
       });
 
@@ -171,7 +171,7 @@ export const setUserFaculty = async (req: Request, res: Response) => {
       });
     }
 
-    currentUser.faculty_id = req.body.facultyId;
+    currentUser.facultyId = req.body.facultyId;
 
     await usersRepo.save(currentUser);
 

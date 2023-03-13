@@ -21,17 +21,17 @@ export default class User {
   @Column()
   email: string;
 
-  @Column()
-  fullname: string;
+  @Column("fullname")
+  fullName: string;
 
-  @Column()
-  last_login: Date;
+  @Column("last_login")
+  lastLogin: Date;
 
   @Column()
   description: string;
 
-  @Column()
-  faculty_id: number;
+  @Column("faculty_id")
+  facultyId: number;
 
   @ManyToOne((type) => Faculty)
   @JoinColumn({ name: "faculty_id" })
@@ -40,11 +40,11 @@ export default class User {
   @Column()
   password: string;
 
-  @Column()
-  created_date: Date;
+  @Column("created_date")
+  createdDate: Date;
 
-  @Column()
-  updated_date: Date;
+  @Column("updated_date")
+  updatedDate: Date;
 
   @ManyToMany((type) => Category)
   @JoinTable({

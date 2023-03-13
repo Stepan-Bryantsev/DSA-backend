@@ -8,6 +8,6 @@ export default class Category {
   @Column()
   category: string;
 
-  @Column()
-  is_custom: boolean;
+  @Column("is_custom")
+  isCustom: boolean;
 }

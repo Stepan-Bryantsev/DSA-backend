@@ -13,15 +13,15 @@ export const getProjects = async (req: Request, res: Response) => {
 
     const projects = await projectsRepo.findAndCount({
       select: {
-        creator_user_id: false,
+        creatorUserId: false,
       },
       relations: {
         user: true,
         categories: true,
       },
       where: [
-        { name: Like(`%${searchParam}%`), creator_user_id: Not(req.userId) },
-        { description: Like(`%${searchParam}%`), creator_user_id: Not(req.userId) },
+        { name: Like(`%${searchParam}%`), creatorUserId: Not(req.userId) },
+        { description: Like(`%${searchParam}%`), creatorUserId: Not(req.userId) },
       ],
       order: {
         id: "DESC",
@@ -32,8 +32,8 @@ export const getProjects = async (req: Request, res: Response) => {
 
     res.status(200).json({
       projects: projects[0].map((p) => {
-        const { user, creator_user_id, ...projectData } = p;
-        const userFullName = user.fullname;
+        const { user, creatorUserId, ...projectData } = p;
+        const userFullName = user.fullName;
         return {
           ...projectData,
           userFullName,
@@ -56,7 +56,7 @@ export const getProject = async (req: Request, res: Response) => {
 
     const project = await projectsRepo.findOne({
       select: {
-        creator_user_id: false,
+        creatorUserId: false,
       },
       relations: {
         user: true,
@@ -88,14 +88,14 @@ export const getUserProjects = async (req: Request, res: Response) => {
 
     const projects = await projectsRepo.findAndCount({
       select: {
-        creator_user_id: false,
+        creatorUserId: false,
       },
       relations: {
         user: true,
         categories: true,
       },
       where: {
-        creator_user_id: req.userId,
+        creatorUserId: req.userId,
       },
       order: {
         id: "DESC",
@@ -106,8 +106,8 @@ export const getUserProjects = async (req: Request, res: Response) => {
 
     res.status(200).json({
       projects: projects[0].map((p) => {
-        const { user, creator_user_id, ...projectData } = p;
-        const userFullName = user.fullname;
+        const { user, creatorUserId, ...projectData } = p;
+        const userFullName = user.fullName;
         return {
           ...projectData,
           userFullName,
@@ -130,11 +130,11 @@ export const createProject = async (req: Request, res: Response) => {
     const categoriesRepo = dataSource.getRepository(Category);
 
     const newProject = new Project();
-    newProject.creator_user_id = req.userId;
+    newProject.creatorUserId = req.userId;
     newProject.name = req.body.name;
     newProject.description = req.body.description;
     newProject.contacts = req.body.contacts;
-    newProject.is_closed = false;
+    newProject.isClosed = false;
 
     const existingCategories = await categoriesRepo.find({
       where: {
@@ -153,7 +153,7 @@ export const createProject = async (req: Request, res: Response) => {
       .map((c: string) => {
         const cat = new Category();
         cat.category = c;
-        cat.is_custom = true;
+        cat.isCustom = true;
         return cat;
       });
 
@@ -186,7 +186,7 @@ export const editProject = async (req: Request, res: Response) => {
       });
     }
 
-    if (editProject.creator_user_id != req.userId) {
+    if (editProject.creatorUserId != req.userId) {
       return res.status(400).json({
         message: "You are not project creator",
       });
@@ -195,7 +195,7 @@ export const editProject = async (req: Request, res: Response) => {
     editProject.name = req.body.name ? req.body.name : editProject.name;
     editProject.description = req.body.description ? req.body.description : editProject.description;
     editProject.contacts = req.body.contacts ? req.body.contacts : editProject.contacts;
-    editProject.updated_date = new Date();
+    editProject.updatedDate = new Date();
 
     await projectsRepo.save(editProject);
 
@@ -217,7 +217,7 @@ export const getCategories = async (req: Request, res: Response) => {
 
     const categories = await categoryRepo.find({
       where: {
-        is_custom: false,
+        isCustom: false,
       },
     });
 
@@ -236,8 +236,8 @@ export const createApplication = async (req: Request, res: Response) => {
     const applicationRepo = dataSource.getRepository(Application);
     const existingApplication = await applicationRepo.findOne({
       where: {
-        applicant_id: req.userId,
-        project_id: req.body.projectId,
+        applicantId: req.userId,
+        projectId: req.body.projectId,
       },
     });
 
@@ -248,8 +248,8 @@ export const createApplication = async (req: Request, res: Response) => {
     }
 
     const newApplication = new Application();
-    newApplication.applicant_id = req.userId;
-    newApplication.project_id = req.body.projectId;
+    newApplication.applicantId = req.userId;
+    newApplication.projectId = req.body.projectId;
     newApplication.message = req.body.message;
     newApplication.status = 1;
 
@@ -272,7 +272,7 @@ export const getSentApplications = async (req: Request, res: Response) => {
     const applicationRepo = dataSource.getRepository(Application);
     const userApplications = await applicationRepo.findOne({
       where: {
-        applicant_id: req.userId,
+        applicantId: req.userId,
       },
     });
 
@@ -293,7 +293,7 @@ export const getIncomingApplications = async (req: Request, res: Response) => {
     const applications = await applicationRepo.find({
       where: {
         project: {
-          creator_user_id: req.userId,
+          creatorUserId: req.userId,
         },
       },
     });
@@ -334,7 +334,7 @@ export const processApplication = async (req: Request, res: Response) => {
       });
     }
 
-    if (application.project.creator_user_id != req.userId) {
+    if (application.project.creatorUserId != req.userId) {
       return res.status(400).json({
         message: "You are not project owner",
       });
