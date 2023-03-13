@@ -35,8 +35,8 @@ export default class Project {
   @Column({ name: "is_closed" })
   isClosed: Boolean;
 
-  @Column({ name: "createdDate" })
-  created_date: Date;
+  @Column({ name: "created_date" })
+  createdDate: Date;
 
   @Column({ name: "updated_date" })
   updatedDate: Date;
