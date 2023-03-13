@@ -6,6 +6,7 @@ import Application from "../models/Application.js";
 export const getProjects = async (req, res) => {
     try {
         const projectsRepo = dataSource.getRepository(Project);
+        const searchParam = req.query.search ? req.query.search : "";
         const projects = await projectsRepo.findAndCount({
             select: {
                 creator_user_id: false,
@@ -15,8 +16,8 @@ export const getProjects = async (req, res) => {
                 categories: true,
             },
             where: [
-                { name: Like(`%${req.query.search}%`), creator_user_id: Not(req.userId) },
-                { description: Like(`%${req.query.search}%`), creator_user_id: Not(req.userId) },
+                { name: Like(`%${searchParam}%`), creator_user_id: Not(req.userId) },
+                { description: Like(`%${searchParam}%`), creator_user_id: Not(req.userId) },
             ],
             order: {
                 id: "DESC",
