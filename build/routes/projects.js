@@ -1,5 +1,5 @@
 import express from "express";
-import { createApplication, createProject, editProject, getCategories, getIncomingApplications, getProject, getProjects, getSentApplications, getUserProjects, processApplication, } from "../controllers/ProjectController.js";
+import { createApplication, createProject, editProject, getCategories, getIncomingApplications, getProject, getProjects, getRecommendedProjects, getSentApplications, getUserProjects, processApplication, } from "../controllers/ProjectController.js";
 import checkAuth from "../utils/checkAuth.js";
 import handleValidationErrors from "../utils/handleValidationErrors.js";
 import { applicationValidation, createProjectValidation, editProjectValidation, } from "../utils/projectsValidations.js";
@@ -10,6 +10,7 @@ router.route("/").post(createProjectValidation, handleValidationErrors, createPr
 router.route("/").patch(editProjectValidation, handleValidationErrors, editProject);
 router.route("/getProject/:id").get(getProject);
 router.route("/my").get(getUserProjects);
+router.route("/recommendations").get(getRecommendedProjects);
 router.route("/getCategories").get(getCategories);
 router.route("/getSentApplications").get(getSentApplications);
 router.route("/getIncomingApplications").get(getIncomingApplications);

@@ -42,9 +42,9 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Project.prototype, "isClosed", void 0);
 __decorate([
-    Column({ name: "createdDate" }),
+    Column({ name: "created_date" }),
     __metadata("design:type", Date)
-], Project.prototype, "created_date", void 0);
+], Project.prototype, "createdDate", void 0);
 __decorate([
     Column({ name: "updated_date" }),
     __metadata("design:type", Date)

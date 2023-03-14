@@ -137,6 +137,9 @@ export const createProject = async (req: Request, res: Response) => {
     newProject.contacts = req.body.contacts;
     newProject.isClosed = false;
 
+    req.body.categories = req.body.categories ? req.body.categories : [];
+    req.body.customCategories = req.body.customCategories ? req.body.customCategories : [];
+
     const existingCategories = await categoriesRepo.find({
       where: {
         id: In(req.body.categories),
