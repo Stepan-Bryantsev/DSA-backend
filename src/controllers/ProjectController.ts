@@ -135,6 +135,8 @@ export const createProject = async (req: Request, res: Response) => {
     newProject.name = req.body.name;
     newProject.description = req.body.description;
     newProject.contacts = req.body.contacts;
+    newProject.startDate = req.body.startDate;
+    newProject.endDate = req.body.endDate;
     newProject.isClosed = false;
 
     req.body.categories = req.body.categories ? req.body.categories : [];
