@@ -4,6 +4,7 @@ import Project from "../models/Project.js";
 import { In, Like, Not } from "typeorm";
 import Category from "../models/Category.js";
 import Application from "../models/Application.js";
+import Recommendation from "../models/Recommendation.js";
 
 export const getProjects = async (req: Request, res: Response) => {
   try {
@@ -345,6 +346,29 @@ export const processApplication = async (req: Request, res: Response) => {
     await applicationRepo.save(application);
 
     res.status(200).json({ success: true });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+};
+
+export const getRecommendedProjects = async (req: Request, res: Response) => {
+  try {
+    const recommendationsRepo = dataSource.getRepository(Recommendation);
+
+    const recommendations = await recommendationsRepo.find({
+      relations: {
+        project: true,
+      },
+      where: {
+        userId: req.userId,
+      },
+    });
+
+    res.status(200).json(recommendations.map((r) => r.project));
   } catch (err) {
     console.log(err);
     res.status(500).json({

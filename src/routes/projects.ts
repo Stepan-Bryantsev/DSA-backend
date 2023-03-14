@@ -7,6 +7,7 @@ import {
   getIncomingApplications,
   getProject,
   getProjects,
+  getRecommendedProjects,
   getSentApplications,
   getUserProjects,
   processApplication,
@@ -29,6 +30,7 @@ router.route("/").patch(editProjectValidation, handleValidationErrors, editProje
 
 router.route("/getProject/:id").get(getProject);
 router.route("/my").get(getUserProjects);
+router.route("/recommendations").get(getRecommendedProjects);
 router.route("/getCategories").get(getCategories);
 router.route("/getSentApplications").get(getSentApplications);
 router.route("/getIncomingApplications").get(getIncomingApplications);
