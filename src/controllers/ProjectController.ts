@@ -276,7 +276,7 @@ export const createApplication = async (req: Request, res: Response) => {
 export const getSentApplications = async (req: Request, res: Response) => {
   try {
     const applicationRepo = dataSource.getRepository(Application);
-    const userApplications = await applicationRepo.findOne({
+    const userApplications = await applicationRepo.find({
       where: {
         applicantId: req.userId,
       },
