@@ -10,32 +10,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, } from "typeorm";
 import Project from "./Project.js";
 import User from "./User.js";
-let Category = class Category {
+let Recommendation = class Recommendation {
 };
 __decorate([
     PrimaryGeneratedColumn(),
     __metadata("design:type", Number)
-], Category.prototype, "id", void 0);
+], Recommendation.prototype, "id", void 0);
 __decorate([
     Column({ name: "user_id" }),
     __metadata("design:type", Number)
-], Category.prototype, "userId", void 0);
+], Recommendation.prototype, "userId", void 0);
 __decorate([
     Column({ name: "project_id" }),
     __metadata("design:type", Number)
-], Category.prototype, "projectId", void 0);
+], Recommendation.prototype, "projectId", void 0);
 __decorate([
     ManyToOne((type) => User),
     JoinColumn({ name: "user_id" }),
     __metadata("design:type", Object)
-], Category.prototype, "user", void 0);
+], Recommendation.prototype, "user", void 0);
 __decorate([
     ManyToOne((type) => Project),
     JoinColumn({ name: "project_id" }),
     __metadata("design:type", Object)
-], Category.prototype, "project", void 0);
-Category = __decorate([
+], Recommendation.prototype, "project", void 0);
+Recommendation = __decorate([
     Entity("user_recommendations")
-], Category);
-export default Category;
+], Recommendation);
+export default Recommendation;
 //# sourceMappingURL=Recommendation.js.map

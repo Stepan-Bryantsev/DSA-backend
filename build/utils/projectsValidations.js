@@ -3,6 +3,8 @@ export const createProjectValidation = [
     body("name", "Wrong name").isLength({ min: 3 }),
     body("description", "Wrong description").isLength({ min: 3 }),
     body("contacts", "Wrong contacts").isLength({ min: 3 }),
+    body("startDate", "Wrong contacts").optional().isDate(),
+    body("endDate", "Wrong contacts").optional().isDate(),
 ];
 export const editProjectValidation = [
     body("name", "Wrong name").optional().isLength({ min: 3 }),

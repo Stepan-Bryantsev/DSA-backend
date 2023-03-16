@@ -297,6 +297,9 @@ export const getIncomingApplications = async (req: Request, res: Response) => {
     const applicationRepo = dataSource.getRepository(Application);
 
     const applications = await applicationRepo.find({
+      relations: {
+        applicant: true,
+      },
       where: {
         project: {
           creatorUserId: req.userId,

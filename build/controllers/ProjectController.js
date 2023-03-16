@@ -124,6 +124,8 @@ export const createProject = async (req, res) => {
         newProject.name = req.body.name;
         newProject.description = req.body.description;
         newProject.contacts = req.body.contacts;
+        newProject.startDate = req.body.startDate;
+        newProject.endDate = req.body.endDate;
         newProject.isClosed = false;
         req.body.categories = req.body.categories ? req.body.categories : [];
         req.body.customCategories = req.body.customCategories ? req.body.customCategories : [];
@@ -322,14 +324,11 @@ export const getRecommendedProjects = async (req, res) => {
     try {
         const recommendationsRepo = dataSource.getRepository(Recommendation);
         const recommendations = await recommendationsRepo.find({
-            relations: {
-                project: true,
-            },
             where: {
                 userId: req.userId,
             },
         });
-        res.status(200).json(recommendations.map((r) => r.project));
+        res.status(200).json(recommendations.map((r) => r));
     }
     catch (err) {
         console.log(err);

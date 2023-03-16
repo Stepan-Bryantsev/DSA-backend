@@ -11,7 +11,7 @@ import Project from "./Project.js";
 import User from "./User.js";
 
 @Entity("user_recommendations")
-export default class Category {
+export default class Recommendation {
   @PrimaryGeneratedColumn()
   id: number;
 
