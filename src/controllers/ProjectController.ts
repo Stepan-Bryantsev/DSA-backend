@@ -5,6 +5,7 @@ import { In, Like, Not } from "typeorm";
 import Category from "../models/Category.js";
 import Application from "../models/Application.js";
 import Recommendation from "../models/Recommendation.js";
+import { campuses, employmentTypes, projectTypes } from "../utils/projectChoices.js";
 
 export const getProjects = async (req: Request, res: Response) => {
   try {
@@ -137,6 +138,16 @@ export const createProject = async (req: Request, res: Response) => {
     newProject.contacts = req.body.contacts;
     newProject.startDate = req.body.startDate;
     newProject.endDate = req.body.endDate;
+    newProject.applicationDeadline = req.body.applicationDeadline;
+    newProject.employmentType = req.body.employmentType;
+    newProject.territory = req.body.territory;
+    newProject.skills = req.body.skills;
+    newProject.creditNumber = req.body.creditNumber;
+    newProject.campus = req.body.campus;
+    newProject.participantsNumber = req.body.participantsNumber;
+    newProject.projectType = req.body.projectType;
+    newProject.weeklyHours = req.body.weeklyHours;
+
     newProject.isClosed = false;
 
     req.body.categories = req.body.categories ? req.body.categories : [];
@@ -184,6 +195,7 @@ export const createProject = async (req: Request, res: Response) => {
 export const editProject = async (req: Request, res: Response) => {
   try {
     const projectsRepo = dataSource.getRepository(Project);
+    const categoriesRepo = dataSource.getRepository(Category);
 
     const editProject = await projectsRepo.findOneBy({ id: req.body.projectId });
     if (!editProject) {
@@ -202,6 +214,58 @@ export const editProject = async (req: Request, res: Response) => {
     editProject.description = req.body.description ? req.body.description : editProject.description;
     editProject.contacts = req.body.contacts ? req.body.contacts : editProject.contacts;
     editProject.updatedDate = new Date();
+
+    editProject.startDate = req.body.startDate ? req.body.startDate : editProject.startDate;
+    editProject.endDate = req.body.endDate ? req.body.endDate : editProject.endDate;
+    editProject.applicationDeadline = req.body.applicationDeadline
+      ? req.body.applicationDeadline
+      : editProject.applicationDeadline;
+    editProject.employmentType = req.body.employmentType
+      ? req.body.employmentType
+      : editProject.employmentType;
+    editProject.territory = req.body.territory ? req.body.territory : editProject.territory;
+    editProject.skills = req.body.skills ? req.body.skills : editProject.skills;
+    editProject.creditNumber = req.body.creditNumber
+      ? req.body.creditNumber
+      : editProject.creditNumber;
+    editProject.campus = req.body.campus ? req.body.campus : editProject.campus;
+    editProject.participantsNumber = req.body.participantsNumber
+      ? req.body.participantsNumber
+      : editProject.participantsNumber;
+    editProject.projectType = req.body.projectType ? req.body.projectType : editProject.projectType;
+    editProject.weeklyHours = req.body.weeklyHours ? req.body.weeklyHours : editProject.weeklyHours;
+
+    if (req.body.categories || req.body.customCategories) {
+      req.body.categories = req.body.categories ? req.body.categories : [];
+      req.body.customCategories = req.body.customCategories ? req.body.customCategories : [];
+
+      const existingCategories = await categoriesRepo.find({
+        where: {
+          id: In(req.body.categories),
+        },
+      });
+
+      const existingCustomCat = await categoriesRepo.find({
+        where: {
+          category: In(req.body.customCategories),
+        },
+      });
+
+      const customCategories = req.body.customCategories
+        .filter((c: string) => !existingCustomCat.map((x) => x.category).includes(c))
+        .map((c: string) => {
+          const cat = new Category();
+          cat.category = c;
+          cat.isCustom = true;
+          return cat;
+        });
+
+      await categoriesRepo.save(customCategories);
+
+      editProject.categories = existingCategories
+        .concat(existingCustomCat)
+        .concat(customCategories);
+    }
 
     await projectsRepo.save(editProject);
 
@@ -377,6 +441,24 @@ export const getRecommendedProjects = async (req: Request, res: Response) => {
     });
 
     res.status(200).json(recommendations.map((r) => r.project));
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+};
+
+export const getProjectChoices = async (req: Request, res: Response) => {
+  try {
+    const result = {
+      employmentTypes: employmentTypes,
+      campuses: campuses,
+      projectTypes: projectTypes,
+    };
+
+    res.status(200).json(result);
   } catch (err) {
     console.log(err);
     res.status(500).json({

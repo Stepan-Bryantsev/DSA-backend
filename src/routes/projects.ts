@@ -6,6 +6,7 @@ import {
   getCategories,
   getIncomingApplications,
   getProject,
+  getProjectChoices,
   getProjects,
   getRecommendedProjects,
   getSentApplications,
@@ -32,6 +33,7 @@ router.route("/getProject/:id").get(getProject);
 router.route("/my").get(getUserProjects);
 router.route("/recommendations").get(getRecommendedProjects);
 router.route("/getCategories").get(getCategories);
+router.route("/getProjectChoices").get(getProjectChoices);
 router.route("/getSentApplications").get(getSentApplications);
 router.route("/getIncomingApplications").get(getIncomingApplications);
 router.route("/apply").post(applicationValidation, handleValidationErrors, createApplication);

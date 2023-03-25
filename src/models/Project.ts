@@ -47,6 +47,33 @@ export default class Project {
   @Column({ name: "end_date" })
   endDate: Date;
 
+  @Column({ name: "application_deadline" })
+  applicationDeadline: Date;
+
+  @Column({ name: "employment_type" })
+  employmentType: Number;
+
+  @Column({ name: "territory" })
+  territory: String;
+
+  @Column({ name: "skills" })
+  skills: String;
+
+  @Column({ name: "credit_number" })
+  creditNumber: Number;
+
+  @Column({ name: "campus" })
+  campus: Number;
+
+  @Column({ name: "participants_number" })
+  participantsNumber: Number;
+
+  @Column({ name: "project_type" })
+  projectType: Number;
+
+  @Column({ name: "weekly_hours" })
+  weeklyHours: Number;
+
   @ManyToMany((type) => Category)
   @JoinTable({
     name: "project_categories",
