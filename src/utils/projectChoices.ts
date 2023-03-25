@@ -17,3 +17,9 @@ export const projectTypes = {
   2: "Application",
   3: "Service",
 };
+
+export const applicationSttatuses = {
+  1: "Sent",
+  2: "Rejected",
+  3: "Accepted",
+};

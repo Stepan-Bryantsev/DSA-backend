@@ -30,6 +30,9 @@ export default class User {
   @Column()
   description: string;
 
+  @Column()
+  bio: string;
+
   @Column({ name: "faculty_id" })
   facultyId: number;
 

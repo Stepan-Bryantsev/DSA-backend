@@ -5,7 +5,12 @@ import { In, Like, Not } from "typeorm";
 import Category from "../models/Category.js";
 import Application from "../models/Application.js";
 import Recommendation from "../models/Recommendation.js";
-import { campuses, employmentTypes, projectTypes } from "../utils/projectChoices.js";
+import {
+  applicationStatuses,
+  campuses,
+  employmentTypes,
+  projectTypes,
+} from "../utils/projectChoices.js";
 
 export const getProjects = async (req: Request, res: Response) => {
   try {
@@ -456,6 +461,7 @@ export const getProjectChoices = async (req: Request, res: Response) => {
       employmentTypes: employmentTypes,
       campuses: campuses,
       projectTypes: projectTypes,
+      applicationStatuses: applicationStatuses,
     };
 
     res.status(200).json(result);
