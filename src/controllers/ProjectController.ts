@@ -438,7 +438,9 @@ export const getRecommendedProjects = async (req: Request, res: Response) => {
 
     const recommendations = await recommendationsRepo.find({
       relations: {
-        project: true,
+        project: {
+          user: true,
+        },
       },
       where: {
         userId: req.userId,
