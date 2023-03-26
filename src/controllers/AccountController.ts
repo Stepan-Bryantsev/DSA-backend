@@ -52,7 +52,8 @@ export const setUserProfile = async (req: Request, res: Response) => {
     userProfile.email = req.body.email ? req.body.email : userProfile.email;
     userProfile.fullName = req.body.fullName ? req.body.fullName : userProfile.fullName;
     userProfile.facultyId = req.body.facultyId ? req.body.facultyId : userProfile.facultyId;
-    userProfile.bio = req.body.bio ? req.body.bio : userProfile.bio;
+    userProfile.bio =
+      req.body.bio != null && req.body.bio != undefined ? req.body.bio : userProfile.bio;
 
     if (req.body.categories || req.body.customCategories) {
       const existingCategories = await categoriesRepo.find({
