@@ -88,6 +88,8 @@ export const setUserProfile = async (req: Request, res: Response) => {
     }
 
     await usersRepo.save(userProfile);
+
+    res.status(200).json({ success: true });
   } catch (err) {
     console.log(err);
     res.status(500).json({
