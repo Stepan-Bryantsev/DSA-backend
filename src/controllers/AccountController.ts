@@ -43,10 +43,6 @@ export const setUserProfile = async (req: Request, res: Response) => {
       where: {
         id: req.userId,
       },
-      relations: {
-        faculty: true,
-        categories: true,
-      },
     });
 
     if (!userProfile) {
