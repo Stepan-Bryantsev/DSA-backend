@@ -447,7 +447,18 @@ export const getRecommendedProjects = async (req: Request, res: Response) => {
       },
     });
 
-    res.status(200).json(recommendations.map((r) => r.project));
+    res.status(200).json(
+      recommendations
+        .map((r) => r.project)
+        .map((p) => {
+          const { user, creatorUserId, ...projectData } = p;
+          const userFullName = user.fullName;
+          return {
+            ...projectData,
+            userFullName,
+          };
+        })
+    );
   } catch (err) {
     console.log(err);
     res.status(500).json({
