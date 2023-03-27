@@ -1,25 +1,25 @@
 export const employmentTypes = {
-  1: "Remote",
-  2: "On-site work",
-  3: "Expeditions",
-  4: "Internships",
+  1: "Удаленная работа",
+  2: "Работа на месте",
+  3: "Экспедиции",
+  4: "Стажировки",
 };
 
 export const campuses = {
-  1: "Moscow",
-  2: "Nizhniy Novgorod",
-  3: "Perm",
-  4: "Saint-Petersburg",
+  1: "Москва",
+  2: "Нижний Новгород",
+  3: "Пермь",
+  4: "Санкт-Петербург",
 };
 
 export const projectTypes = {
-  1: "Research",
-  2: "Application",
-  3: "Service",
+  1: "Исследовательский",
+  2: "Прикладной",
+  3: "Сервисный",
 };
 
 export const applicationStatuses = {
-  1: "Sent",
-  2: "Rejected",
-  3: "Accepted",
+  1: "Отправлена",
+  2: "Отклонена",
+  3: "Принята",
 };
