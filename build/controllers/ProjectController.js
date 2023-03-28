@@ -5,6 +5,7 @@ import Category from "../models/Category.js";
 import Application from "../models/Application.js";
 import Recommendation from "../models/Recommendation.js";
 import { campuses, employmentTypes, projectTypes } from "../utils/projectChoices.js";
+
 export const getProjects = async (req, res) => {
   try {
     const projectsRepo = dataSource.getRepository(Project);
@@ -26,10 +27,11 @@ export const getProjects = async (req, res) => {
     });
     res.status(200).json({
       projects: projects[0].map((p) => {
-        const { user, ...projectData } = p;
+        const { user, creatorUserId, ...projectData } = p;
         const userFullName = user.fullName;
         return {
           ...projectData,
+          creatorUserId,
           userFullName,
         };
       }),
