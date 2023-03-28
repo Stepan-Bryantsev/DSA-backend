@@ -39,7 +39,7 @@ export const getProjects = async (req: Request, res: Response) => {
 
     res.status(200).json({
       projects: projects[0].map((p) => {
-        const { user, creatorUserId, ...projectData } = p;
+        const { user, ...projectData } = p;
         const userFullName = user.fullName;
         return {
           ...projectData,
@@ -113,7 +113,7 @@ export const getUserProjects = async (req: Request, res: Response) => {
 
     res.status(200).json({
       projects: projects[0].map((p) => {
-        const { user, creatorUserId, ...projectData } = p;
+        const { user, ...projectData } = p;
         const userFullName = user.fullName;
         return {
           ...projectData,
@@ -451,7 +451,7 @@ export const getRecommendedProjects = async (req: Request, res: Response) => {
       recommendations
         .map((r) => r.project)
         .map((p) => {
-          const { user, creatorUserId, ...projectData } = p;
+          const { user, ...projectData } = p;
           const userFullName = user.fullName;
           return {
             ...projectData,
