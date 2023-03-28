@@ -29,9 +29,10 @@ export const getProjects = async (req, res) => {
       projects: projects[0].map((p) => {
         const { user, creatorUserId, ...projectData } = p;
         const userFullName = user.fullName;
+        const creatorUser = user.id;
         return {
           ...projectData,
-          creatorUserId,
+          creatorUser,
           userFullName,
         };
       }),
