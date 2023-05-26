@@ -33,6 +33,10 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "description", void 0);
 __decorate([
+    Column(),
+    __metadata("design:type", String)
+], User.prototype, "bio", void 0);
+__decorate([
     Column({ name: "faculty_id" }),
     __metadata("design:type", Number)
 ], User.prototype, "facultyId", void 0);

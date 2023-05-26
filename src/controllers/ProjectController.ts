@@ -27,8 +27,8 @@ export const getProjects = async (req: Request, res: Response) => {
         categories: true,
       },
       where: [
-        { name: Like(`%${searchParam}%`), creatorUserId: Not(req.userId) },
-        { description: Like(`%${searchParam}%`), creatorUserId: Not(req.userId) },
+        { name: Like(`%${searchParam}%`), creatorUserId: Not(req.userId), isClosed: false },
+        { description: Like(`%${searchParam}%`), creatorUserId: Not(req.userId), isClosed: false },
       ],
       order: {
         id: "DESC",
@@ -122,6 +122,35 @@ export const getUserProjects = async (req: Request, res: Response) => {
       }),
       count: projects[1],
     });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+};
+
+export const getProjectsByTag = async (req: Request, res: Response) => {
+  try {
+    const projectsRepo = dataSource.getRepository(Project);
+
+    const tagParam = req.query.tag ? req.query.tag : "";
+
+    const projects = await projectsRepo.find({
+      select: {
+        creatorUserId: false,
+      },
+      relations: {
+        user: true,
+        categories: true,
+      },
+      order: {
+        id: "DESC",
+      },
+    });
+
+    res.status(200).json(projects.filter((p) => p.categories.some((t) => t.category == tagParam)));
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -440,6 +469,7 @@ export const getRecommendedProjects = async (req: Request, res: Response) => {
       relations: {
         project: {
           user: true,
+          categories: true,
         },
       },
       where: {

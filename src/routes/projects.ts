@@ -8,6 +8,7 @@ import {
   getProject,
   getProjectChoices,
   getProjects,
+  getProjectsByTag,
   getRecommendedProjects,
   getSentApplications,
   getUserProjects,
@@ -32,6 +33,7 @@ router.route("/").patch(editProjectValidation, handleValidationErrors, editProje
 router.route("/getProject/:id").get(getProject);
 router.route("/my").get(getUserProjects);
 router.route("/recommendations").get(getRecommendedProjects);
+router.route("/byTag").get(getProjectsByTag);
 router.route("/getCategories").get(getCategories);
 router.route("/getProjectChoices").get(getProjectChoices);
 router.route("/getSentApplications").get(getSentApplications);
